@@ -1,0 +1,13 @@
+.title-th{
+
+	width: 800px;
+}
+.content-th{
+	text-align: left;
+}
+.btn-write {
+	float:right;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	width : 80px;
+}
