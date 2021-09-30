@@ -18,7 +18,7 @@ public interface BoardRepository extends JpaRepository<Board,Integer>{
 	@Override
 	void delete(Board entity);
 
-	List<Board> findByBoardOptionSeq(int boardSeq);
+	List<Board> findByBoardOptionSeqOrderBySeqDesc(int boardSeq);
 
 }
 

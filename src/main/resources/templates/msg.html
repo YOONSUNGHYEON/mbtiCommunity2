@@ -5,10 +5,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script th:inline="javascript">
-	let m =[[ ${msg} ]];
-	alert(m);
+	<script>
+	/*<![CDATA[*/
+	alert("[[ ${msg}]]");
 	history.back();
+	/*]]>*/
 </script>
 </body>
 </html>

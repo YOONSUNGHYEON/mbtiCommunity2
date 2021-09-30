@@ -1,6 +1,7 @@
 package com.yoon.mbtiCommunity2.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -47,9 +48,13 @@ public class BoardServiceImp implements BoardService{
 
 	@Override
 	public List<BoardDTO> findListByBoardOptionSeq(int boardOptionSeq) {
-		List<Board> boardList =  boardRepository.findByBoardOptionSeq(boardOptionSeq);
-
-		return null;
+		List<Board> boardList =  boardRepository.findByBoardOptionSeqOrderBySeqDesc(boardOptionSeq);
+		List<BoardDTO> boardListDTO = new ArrayList<>();
+		System.out.println(boardList.size());
+		for(int i=0; i<boardList.size(); i++) {
+			boardListDTO.add(new BoardDTO(boardList.get(i)));
+		}
+		return boardListDTO;
 	}
 
 }

@@ -11,5 +11,5 @@ public interface MemberRepository extends JpaRepository<Member,Integer> {
 	Member findById(String id);
 
 	Member findByIdAndPassword(String id, String password);
-
+	Member findMbtiOptionSeqById(String memberSeq);
 }

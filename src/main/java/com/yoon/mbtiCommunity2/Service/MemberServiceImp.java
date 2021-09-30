@@ -45,5 +45,11 @@ public class MemberServiceImp implements MemberService{
 		return false;
 	}
 
+	@Override
+	public int findMbtiOptionSeqById(String memberId) {
+		Member member = memberRepository.findMbtiOptionSeqById(memberId);
+		return member.getMbtiOption().getSeq();
+	}
+
 
 }

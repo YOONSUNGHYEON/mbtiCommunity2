@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoon.mbtiCommunity2.Service.MemberService;
@@ -33,7 +32,6 @@ public class MemberAPI {
 	}
 
 	@PostMapping("/register")
-	@ResponseBody
 	public Map<String, String> register(@RequestBody Map<String, String> param) {
 		Map<String, String> response = new HashMap();
 		if(param.get("id").isEmpty() || param.get("password").isEmpty() || param.get("password2").isEmpty()) {

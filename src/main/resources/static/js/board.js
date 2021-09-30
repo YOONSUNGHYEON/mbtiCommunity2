@@ -5,31 +5,24 @@ window.onload = function() {
 }
 
 function getParam(sMethod) {
-	let params = new URLSearchParams(location.search);
+	let url = location.pathname;
+	const urlSplit = url.split("/");
 	if(sMethod=='page') {
-		return params.get('page');
+		
 	}
 	else if(sMethod=='optionId') {
-		return params.get('id');
+		return urlSplit[urlSplit.length-1];
 	}
 }
 
-function getBoardOptionIdParam() {
-	let params = new URLSearchParams(location.search);
-	let BoardOptionId = params.get('id');
-	
-	return BoardOptionId;
-}
 function clickCreateBtn() {
 	let nBoardOptionId = getParam('optionId');
-	location.href = "./create.php?id=" + nBoardOptionId;
+	location.href = "/boards/" + nBoardOptionId+"/post";
 }
 function getOptionNameByOptionId() {
 	let nBoardOptionId = getParam('optionId');
-	let url = location.pathname;
-	const urlSplit = url.split("/");
-	console.log("ddddddddd");
-	$.getJSON('/api/boardOption/' + urlSplit[urlSplit.length-1], function(boardOption) {
+
+	$.getJSON('/api/boardOption/' + nBoardOptionId, function(boardOption) {
 		//console.log(boardOptionName);
 		$("#boardTitle").text(boardOption["name"]);
 	})
@@ -50,7 +43,26 @@ function deleteBoard(nBoardId, page) {
 //게시판 목록 가져오기
 function getListByOptionId(page) {
 	let nBoardOptionId = getParam('optionId');
-	$.ajax({
+	
+	$.getJSON('/api/boards/' + nBoardOptionId, function(boardList) {
+		
+		let boardTable = "";
+		$.each(boardList, function(index, item) {
+				boardTable += '<tr style="cursor:pointer;">';
+				boardTable += '<th class="content-th" scope="row"><div><a class="board-a" href="/board/';
+				boardTable += item["seq"];
+				boardTable +='">' ;
+				boardTable += item["title"] + '</a></div>';
+				boardTable += '<td class="content-th">' + item["memberDTO"]["id"] + '</td>';
+				boardTable += '<td class="content-th">' + 0 + '</td>';
+				boardTable += '<td class="content-th">' + 0 + '</td>';
+				boardTable += '<td class="content-th">' + item["createDate"] + '</td>';
+				boardTable += '</tr>';
+		});
+		$("#boardTable").html(boardTable);
+		
+	})
+	/*$.ajax({
 		type: 'GET',
 		url: "BoardController.php?method=board&id=" + nBoardOptionId + "&page=" + page,
 		dataType: "json",
@@ -87,7 +99,7 @@ function getListByOptionId(page) {
 
 
 		}
-	});
+	});*/
 }
 
 

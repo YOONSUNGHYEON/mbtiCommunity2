@@ -26,7 +26,6 @@ function getBoardById() {
 	const url = location.pathname;
 	
 	$.getJSON('/api' + url, function(board) {
-		console.log(board);
 		$("#writer").html(board["memberDTO"]["id"]);
 		$("#title").html(board["title"]);
 		$("#content").html(board["content"]);
@@ -54,10 +53,10 @@ function getBoardById() {
 
 //게시물 삭제하기
 function deleteBoard() {
-	let nBoardId = getParam('id');
+	const url = location.pathname;
 	$.ajax({
 		type: 'DELETE',
-		url: "BoardController.php?method=delete&id=" + nBoardId,
+		url: "/api"+url,
 		success: function(deleteResult) {
 			if (deleteResult == true) {
 				alert("삭제 성공했습니다.");
@@ -81,11 +80,44 @@ function editBoard() {
 ////////////////////////////////////
 ////////////Comment////////////////
 //////////////////////////////////
+function register() {
+	let registerForm = {
+		id: $("#id").val(),
+		password: $("#password").val(),
+		password2: $("#password2").val(),
+		mbtiOption: $("#mbtiOptionSelect option:selected").val()
+	};
+	$.ajax({
+		url: "api/register",
+		type: "POST",
+		dataType: "json",
+		data: JSON.stringify(registerForm),
+		contentType: "application/json",
+		async: true,
+		success: function(result) {
+			if(result['code']=='400') {
+				alert(result['message']);
+				location.href='/register';
+			}
+			else {
+				alert(result['message']);
+				location.href='/login';
+			}
+		},
+		error: function(request, status, error) {
 
+		}
+	})
+}
 //댓글 달기
 function enrollComment() {
 	const nBoardId = getParam('id');
-	const commentForm = $('#commentForm').serialize();
+		let registerForm = {
+		id: $("#id").val(),
+		password: $("#password").val(),
+		password2: $("#password2").val(),
+		mbtiOption: $("#mbtiOptionSelect option:selected").val()
+	};
 	$.ajax({
 		url: "BoardController.php?method=comment&id=" + nBoardId,
 		type: "POST",

@@ -8,5 +8,7 @@ public interface MemberService {
 
     MemberDTO login(MemberDTO memberDTO);
 
+    int findMbtiOptionSeqById(String memberSeq);
+
 
 }
