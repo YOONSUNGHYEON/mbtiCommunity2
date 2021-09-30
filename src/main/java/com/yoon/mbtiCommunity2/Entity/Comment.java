@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.yoon.mbtiCommunity2.DTO.CommentDTO;
+
 import lombok.Getter;
 
 @Entity(name = "Comment")
@@ -32,6 +34,20 @@ public class Comment {
 	@Column(name = "sContent", nullable = false)
 	private String content;
 
-    @Column(name = "dtCreateDate", nullable = false)
-    private String createDate ;
+	@Column(name = "dtCreateDate", nullable = false)
+	private String createDate;
+
+	public Comment(CommentDTO commentDTO) {
+		this.board = new Board(commentDTO.getBoardDTO());
+		this.member = new Member(commentDTO.getMemberDTO());
+		this.content = commentDTO.getContent();
+		this.createDate = commentDTO.getCreateDate();
+
+	}
+
+	public Comment() {
+		// TODO Auto-generated constructor stub
+	}
+
+
 }

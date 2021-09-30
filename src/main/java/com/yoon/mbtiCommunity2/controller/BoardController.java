@@ -70,9 +70,11 @@ public class BoardController {
 	}
 
 	// 글 상세 페이지
-	@GetMapping("/board/{id}")
+	@GetMapping("/board/{boardOptionId}/{boardId}")
 	public String view(HttpSession session) {
 
 		return "view";
 	}
+
+
 }

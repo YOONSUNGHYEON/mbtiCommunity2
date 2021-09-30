@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.yoon.mbtiCommunity2.DTO.MemberDTO;
 import com.yoon.mbtiCommunity2.Service.MemberService;
 
 @RestController
@@ -24,11 +25,20 @@ public class MemberAPI {
 	public boolean session(HttpSession session) {
 		if (session.getAttribute("member") == null) {
     		return false;
-		}
-    	else {
+		} else {
     		return true;
     	}
 
+	}
+
+	@GetMapping("/member")
+	public MemberDTO getMember(HttpSession session) {
+		MemberDTO memberDTO = new MemberDTO();
+		if (session.getAttribute("member") == null) {
+    		return memberDTO;
+		} else {
+    		return (MemberDTO) session.getAttribute("member");
+    	}
 	}
 
 	@PostMapping("/register")

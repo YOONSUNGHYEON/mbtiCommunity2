@@ -42,15 +42,15 @@ function deleteBoard(nBoardId, page) {
 
 //게시판 목록 가져오기
 function getListByOptionId(page) {
-	let nBoardOptionId = getParam('optionId');
+	let boardOptionId = getParam('optionId');
 	
-	$.getJSON('/api/boards/' + nBoardOptionId, function(boardList) {
+	$.getJSON('/api/boards/' + boardOptionId, function(boardList) {
 		
 		let boardTable = "";
 		$.each(boardList, function(index, item) {
 				boardTable += '<tr style="cursor:pointer;">';
 				boardTable += '<th class="content-th" scope="row"><div><a class="board-a" href="/board/';
-				boardTable += item["seq"];
+				boardTable += boardOptionId +"/"+item["seq"];
 				boardTable +='">' ;
 				boardTable += item["title"] + '</a></div>';
 				boardTable += '<td class="content-th">' + item["memberDTO"]["id"] + '</td>';

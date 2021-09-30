@@ -42,6 +42,7 @@ public class MemberController {
 			System.out.println("not null");
 			session.setAttribute("member", result);
 			session.setAttribute("memberId", result.getId());
+			session.setAttribute("memberSeq", result.getSeq());
 			return "redirect:/";
 
 		} else {

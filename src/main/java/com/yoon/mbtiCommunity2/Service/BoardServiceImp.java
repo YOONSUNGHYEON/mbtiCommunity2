@@ -50,7 +50,6 @@ public class BoardServiceImp implements BoardService{
 	public List<BoardDTO> findListByBoardOptionSeq(int boardOptionSeq) {
 		List<Board> boardList =  boardRepository.findByBoardOptionSeqOrderBySeqDesc(boardOptionSeq);
 		List<BoardDTO> boardListDTO = new ArrayList<>();
-		System.out.println(boardList.size());
 		for(int i=0; i<boardList.size(); i++) {
 			boardListDTO.add(new BoardDTO(boardList.get(i)));
 		}
