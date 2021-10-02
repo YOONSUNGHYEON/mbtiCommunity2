@@ -20,5 +20,7 @@ public interface BoardRepository extends JpaRepository<Board,Integer>{
 
 	List<Board> findByBoardOptionSeqOrderBySeqDesc(int boardSeq);
 
+	Board findMemberSeqBySeq(int boardSeq);
+
 }
 

@@ -3,7 +3,13 @@ window.onload = function() {
 	getCommentListByBoardId();
 	getRecommentByUserIdAndBoardId();
 }
-
+function deleteConfirm() {
+        if (!confirm("정말 취소 하시겠습니까?")) {
+            
+        } else {
+            
+        }
+ }
 function getParam(sMethod) {
 	let url = location.pathname;
 	const urlSplit = url.split("/");
@@ -16,13 +22,11 @@ function getParam(sMethod) {
 }
 
 function goLastPage() {
-
 	location.href = '/boards/'+getParam("boardOptionId");
 }
 //해당 게시물 내용 가져오기
 function getBoardById() {
 	const boardId = getParam("boardId");
-
 	$.getJSON('/api/board/' + boardId, function(board) {
 		$("#writer").html(board["memberDTO"]["id"]);
 		$("#title").html(board["title"]);
@@ -66,9 +70,9 @@ function deleteBoard() {
 
 //수정하기
 function editBoard() {
-	const nBoardId = getParam('id');
-	const nOptionId = getParam('optionId');
-	location.href = 'edit.php?optionId=' + nOptionId + '&id=' + nBoardId;
+	const boardId = getParam('boardId');
+	const boardOptionId = getParam('boardOptionId');
+	location.href = "/boards/" + boardOptionId+"/post/"+boardId;
 }
 
 

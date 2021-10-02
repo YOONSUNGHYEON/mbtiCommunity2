@@ -12,4 +12,8 @@ public interface BoardService {
 
 	List<BoardDTO> findListByBoardOptionSeq(int boardOptionSeq);
 
+	int findMemberSeqByBoardSeq(int boardSeq);
+
+	boolean update(BoardDTO boardDTO, int boardOptionSeq, int boardSeq);
+
 }

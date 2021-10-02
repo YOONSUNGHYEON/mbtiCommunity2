@@ -8,12 +8,10 @@
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.css" />
 <link rel="stylesheet" type="text/css" href="/css/main.css" />
-<link rel="stylesheet" type="text/css" href="/css/board.css" />
-
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script type="text/javascript" async="" src="/js/nav.js"></script>
-<script type="text/javascript" async="" src="/js/create.js"></script>
+<script type="text/javascript" async="true" src="/js/nav.js"></script>
+<script type="text/javascript" async="true" src="/js/edit.js"></script>
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -25,23 +23,23 @@
 		</div>
 	</nav>
 	<div id="main-wrapper" class="content">
-		<h1>글 작성</h1>
+		<h1>글 수정하기</h1>
 		<div id="content-wrapper" class="">
-			<form name="boardForm" id="boardForm" method="post" action="/boards/post">
+			<form name="boardForm" id="boardForm" method="post">
 				<fieldset>
 					<div class="form-group">
-						<input type="text" class="form-control" name="title" id=""
+						<input type="text" class="form-control" name="title" id="title"
 							placeholder="제목을 작성해주세요">
 					</div>
 					<div class="form-group">
-						<textarea class="form-control" name="content" id="exampleTextarea"
+						<textarea class="form-control" name="content" id="content"
 							cols="100" rows="30" placeholder="내용을 작성해주세요"></textarea>
 					</div>
-					</br>
+
 				</fieldset>
 				</br>
-				<button type="submit" name="submit"
-					class="btn btn-primary">글 작성</button>
+				<button onclick="clickEditBtn();" type="button"
+					class="btn btn-primary">수정하기</button>
 
 				<a class=" btn btn-outline-danger" type="button"
 					href="javascript:goLastPage()">취소</a>

@@ -1,56 +1,57 @@
 window.onload = function() {
-    findByBoardId();
+	findByBoardId();
 }
 
 
 function getParam(sMethod) {
-	let params = new URLSearchParams(location.search);
-	if(sMethod=='id') {
-		return params.get('id');
+	let url = location.pathname;
+	const urlSplit = url.split("/");
+	if (sMethod == 'boardOptionId') {
+		return urlSplit[urlSplit.length - 3];
 	}
-	else if(sMethod=='optionId') {
-		return params.get('optionId');
+	else if (sMethod == 'boardId') {
+		return urlSplit[urlSplit.length - 1];
 	}
 }
+
 //해당 게시물 내용 가져오기
 function findByBoardId() {
-	const nBoardId = getParam('id');	
-	$.ajax({
-		type: 'GET',
-		url: "BoardController.php?method=getBoardById&id=" + nBoardId,
-		dataType: "json",
-		success: function(board) {	
-			 $('#title').val(board['sTitle']);
-		 	$('#content').val(board['sContent']);
+	const boardId = getParam("boardId");
+	console.log(boardId);
+	$.getJSON('/api/board/' + boardId, function(board) {
+		console.log(board);
+		$('#title').val(board["title"]);
+		$('#content').val(board["content"]);
 
-
-		}
-	});
+	})
 }
 function goLastPage() {
-	const nOptionId = getParam('optionId');
-	location.href = './board.php?id=' + nOptionId;
+	const boardId = getParam('boardId');
+	const boardOptionId = getParam('boardOptionId');
+	location.href = '/board/'+boardOptionId+'/'+boardId;
 }
+
 function clickEditBtn() {
-	const nBoardId = getParam('id');	
-	const nOptionId = getParam('optionId');
-	const boardForm = $('#boardForm').serialize();
- 	//console.log(nBoardId);
-	 $.ajax({
-            url: "BoardController.php?method=update&id="+nBoardId,
-            type: "POST",
-            cache: false,
-            data: boardForm, // data에 바로 serialze한 데이터를 넣는다.
-            success: function(result){
-				if(nBoardId==-1) {
-					alert("제목은  40자 이하로 작성해 주세요.");
-				}
-				else {
-					location.href='view.php?optionId='+nOptionId+'&id='+nBoardId;
-				}
-            },
-            error: function (request, status, error){        
-                console.log(error)
-            }
-        }) 
+	const boardId = getParam('boardId');
+	const boardOptionId = getParam('boardOptionId');
+	
+	let boardForm = {
+		title: $("#title").val(),
+		content: $("#content").val(),
+	};
+	
+	$.ajax({
+		url: "/api/boards/"+boardOptionId+"/post/"+boardId,
+		type: "POST",
+		data: boardForm,
+		success: function(updateResult) {
+			if(updateResult['code']=='400') {
+				alert(updateResult['message']);
+			}
+			else if(updateResult['code']=='200'){
+				alert(updateResult['message']);
+			}
+			location.href = '/board/'+boardOptionId+'/'+boardId;
+		},
+	})
 }

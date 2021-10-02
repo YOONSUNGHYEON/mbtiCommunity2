@@ -17,15 +17,13 @@ import com.yoon.mbtiCommunity2.Repository.BoardRepository;
 
 @Service
 @Transactional
-public class BoardServiceImp implements BoardService{
-
+public class BoardServiceImp implements BoardService {
 
 	@Autowired
 	BoardOptionRepository boardOptionRepository;
 
 	@Autowired
 	BoardRepository boardRepository;
-
 
 	@Override
 	public int save(BoardDTO boardDTO, int boardOptionId) {
@@ -37,23 +35,42 @@ public class BoardServiceImp implements BoardService{
 		Board tempBoard = new Board(boardDTO);
 		return boardRepository.save(tempBoard).getSeq();
 	}
-
-
+	@Override
+	public boolean update(BoardDTO boardDTO, int boardOptionSeq, int boardSeq) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
+		boardDTO.setBoardOptionDTO(new BoardOptionDTO(boardOptionRepository.findBySeq(boardOptionSeq)));
+		boardDTO.setCreateDate(format.format(time));
+		boardDTO.setSeq(boardSeq);
+		Board tempBoard = new Board(boardDTO);
+		if(boardRepository.save(tempBoard)==null) {
+			return false;
+		}
+		return true;
+	}
 	@Override
 	public BoardDTO findBySeq(int boardSeq) {
 		BoardDTO boardDTO = new BoardDTO(boardRepository.findBySeq(boardSeq));
 		return boardDTO;
 	}
 
-
 	@Override
 	public List<BoardDTO> findListByBoardOptionSeq(int boardOptionSeq) {
-		List<Board> boardList =  boardRepository.findByBoardOptionSeqOrderBySeqDesc(boardOptionSeq);
+		List<Board> boardList = boardRepository.findByBoardOptionSeqOrderBySeqDesc(boardOptionSeq);
 		List<BoardDTO> boardListDTO = new ArrayList<>();
-		for(int i=0; i<boardList.size(); i++) {
+		for (int i = 0; i < boardList.size(); i++) {
 			boardListDTO.add(new BoardDTO(boardList.get(i)));
 		}
 		return boardListDTO;
 	}
+
+	@Override
+	public int findMemberSeqByBoardSeq(int boardSeq) {
+		Board board = boardRepository.findMemberSeqBySeq(boardSeq);
+		return board.getMember().getSeq();
+
+	}
+
+
 
 }

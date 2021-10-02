@@ -16,8 +16,6 @@ import com.yoon.mbtiCommunity2.Service.BoardOptionService;
 import com.yoon.mbtiCommunity2.Service.BoardService;
 import com.yoon.mbtiCommunity2.Service.MemberService;
 
-
-
 @Controller
 public class BoardController {
 
@@ -38,43 +36,45 @@ public class BoardController {
 	// 글 작성 페이지
 	@GetMapping("/boards/{boardOptionSeq}/post")
 	public String createBoard(@PathVariable("boardOptionSeq") int boardOptionSeq, HttpSession session, Model model) {
-		if (session.getAttribute("member") == null) { //로그인을 안했다면 login 페이지로 리다이렉트
+		if (session.getAttribute("member") == null) { // 로그인을 안했다면 login 페이지로 리다이렉트
 			return "redirect:/login";
-		} else if( memberService.findMbtiOptionSeqById((String)session.getAttribute("memberId")) != boardOptionSeq) { //게시판 option과 나의 mbti 유형이 다를 경우
+		} else if (memberService.findMbtiOptionSeqById((String) session.getAttribute("memberId")) != boardOptionSeq) {
 			model.addAttribute("msg", "자신의 mbti 게시판에서 글을 작성해 주세요.");
 			return "msg";
 		}
-
 		return "create";
 	}
 
 	// 글 작성 post
-	@PostMapping("/boards/{id}/post")
-	public String enrollBoard(@PathVariable("id") int boardOptionId, @ModelAttribute BoardDTO boardDTO,
+	@PostMapping("/boards/{boardOptionSeq}/post")
+	public String enrollBoard(@PathVariable("boardOptionSeq") int boardOptionSeq, @ModelAttribute BoardDTO boardDTO,
 			HttpSession session) {
 		if (session.getAttribute("member") == null) {
 			return "redirect:/login";
 		}
 		boardDTO.setMemberDTO((MemberDTO) session.getAttribute("member"));
-		int boardSeq = boardService.save(boardDTO, boardOptionId);
-		return "redirect:/board/" + boardSeq;
+		int boardSeq = boardService.save(boardDTO, boardOptionSeq);
+		return "redirect:/board/"+boardOptionSeq+"/"+boardSeq;
 	}
 
 	// 글 수정 페이지
-	@GetMapping("/boards/post/{id}")
-	public String edit(HttpSession session) {
+	@GetMapping("/boards/{boardOptionSeq}/post/{boardSeq}")
+	public String edit(@PathVariable("boardOptionSeq") int boardOptionSeq, @PathVariable("boardSeq") int boardSeq,
+			HttpSession session) {
 		if (session.getAttribute("member") == null) {
 			return "redirect:/login";
 		}
-		return "create";
+		int writerSeq = boardService.findMemberSeqByBoardSeq(boardSeq);
+		if (writerSeq!=Integer.parseInt(session.getAttribute("memberSeq").toString())) {
+			return "redirect:/board/"+boardOptionSeq+"/"+boardSeq;
+		}
+		return "edit";
 	}
 
 	// 글 상세 페이지
 	@GetMapping("/board/{boardOptionId}/{boardId}")
 	public String view(HttpSession session) {
-
 		return "view";
 	}
-
 
 }
