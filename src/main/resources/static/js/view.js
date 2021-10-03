@@ -4,25 +4,29 @@ window.onload = function() {
 	getRecommentByUserIdAndBoardId();
 }
 function deleteConfirm() {
-        if (!confirm("정말 취소 하시겠습니까?")) {
-            
-        } else {
-            
-        }
- }
+	if (!confirm("정말 취소 하시겠습니까?")) {
+
+	} else {
+
+	}
+}
 function getParam(sMethod) {
 	let url = location.pathname;
+	let params = new URLSearchParams(location.search);
 	const urlSplit = url.split("/");
 	if (sMethod == 'boardOptionId') {
 		return urlSplit[urlSplit.length - 2];
-	}
-	else if (sMethod == 'boardId') {
+	} else if (sMethod == 'boardId') {
 		return urlSplit[urlSplit.length - 1];
+	} else if(sMethod=='page') {
+		return params.get('page');
 	}
 }
 
 function goLastPage() {
-	location.href = '/boards/'+getParam("boardOptionId");
+	let page = getParam("page");
+	location.href = '/boards/' + getParam("boardOptionId") + '?page=' + page;
+
 }
 //해당 게시물 내용 가져오기
 function getBoardById() {
@@ -72,7 +76,7 @@ function deleteBoard() {
 function editBoard() {
 	const boardId = getParam('boardId');
 	const boardOptionId = getParam('boardOptionId');
-	location.href = "/boards/" + boardOptionId+"/post/"+boardId;
+	location.href = "/boards/" + boardOptionId + "/post/" + boardId;
 }
 
 

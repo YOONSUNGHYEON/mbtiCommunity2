@@ -1,19 +1,3 @@
-window.onload=function(){
-	checkSession();
-}
-function checkSession(){
-	$.ajax({
-		type: 'GET',
-		url: "UserController.php?method=session",
-		dataType: "text",
-		success: function(bSession) {
-			if(bSession==true) {
-				location.href='./index.php';
-			}
-		}
-	});
-}
-
 
 
 function login(){
@@ -27,7 +11,7 @@ function login(){
             success: function(result){
 				if(result == true) {
 					alert('로그인 성공!');
-					location.href='./index.php';
+					history.back();
 				}
 				else {
 					console.log(result);

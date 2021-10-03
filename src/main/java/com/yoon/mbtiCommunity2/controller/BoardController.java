@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.yoon.mbtiCommunity2.DTO.BoardDTO;
 import com.yoon.mbtiCommunity2.DTO.MemberDTO;
@@ -73,7 +74,7 @@ public class BoardController {
 
 	// 글 상세 페이지
 	@GetMapping("/board/{boardOptionId}/{boardId}")
-	public String view(HttpSession session) {
+	public String view(HttpSession session, @RequestParam(value="page") int page) {
 		return "view";
 	}
 

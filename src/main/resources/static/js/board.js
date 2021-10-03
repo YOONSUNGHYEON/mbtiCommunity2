@@ -6,9 +6,11 @@ window.onload = function() {
 
 function getParam(sMethod) {
 	let url = location.pathname;
+	let params = new URLSearchParams(location.search);
 	const urlSplit = url.split("/");
+	
 	if(sMethod=='page') {
-		
+		return params.get('page');
 	}
 	else if(sMethod=='optionId') {
 		return urlSplit[urlSplit.length-1];
@@ -43,14 +45,31 @@ function deleteBoard(nBoardId, page) {
 //게시판 목록 가져오기
 function getListByOptionId(page) {
 	let boardOptionId = getParam('optionId');
-	
-	$.getJSON('/api/boards/' + boardOptionId, function(boardList) {
+	console.log(page);
+	$.getJSON('/api/boards/' + boardOptionId+'?page='+page, function(response) {
+		//console.log(response);
+		
+		let pagingHtml="";
+			pagingHtml+="<li class='page-item'><a class='page-link' href='javascript:getListByOptionId(" + response["pagination"]["startPage"]+")'>&laquo;</a></li>";
+			for (var i = response["pagination"]["startPage"]; i <= response["pagination"]["endPage"]; i++) {
+				if (i == response["pagination"]["currentPage"]) {
+					pagingHtml += "<li class='page-item active'>";
+				} else {
+					pagingHtml += "<li class=page-item>";
+				}
+				pagingHtml += "<a class=page-link href='javascript:getListByOptionId("+i+")'>" + i;
+				pagingHtml += "</a></li>";
+			}
+			pagingHtml+="<li class='page-item'><a class='page-link' href='javascript:getListByOptionId(" + response["pagination"]["endPage"]+")'>&raquo;</a></li>";
+			$('#pagination').empty();
+			$('#pagination').html(pagingHtml);
+		
 		
 		let boardTable = "";
-		$.each(boardList, function(index, item) {
+		$.each(response["boardList"], function(index, item) {
 				boardTable += '<tr style="cursor:pointer;">';
 				boardTable += '<th class="content-th" scope="row"><div><a class="board-a" href="/board/';
-				boardTable += boardOptionId +"/"+item["seq"];
+				boardTable += boardOptionId +"/"+item["seq"]+"?page="+page;
 				boardTable +='">' ;
 				boardTable += item["title"] + '</a></div>';
 				boardTable += '<td class="content-th">' + item["memberDTO"]["id"] + '</td>';
@@ -62,44 +81,6 @@ function getListByOptionId(page) {
 		$("#boardTable").html(boardTable);
 		
 	})
-	/*$.ajax({
-		type: 'GET',
-		url: "BoardController.php?method=board&id=" + nBoardOptionId + "&page=" + page,
-		dataType: "json",
-		success: function(data) {
-			let boardTable = "";
-			for (let i = 1; i <= data['nCurrentCount']; i++) {
-				boardTable += '<tr style="cursor:pointer;">';
-				boardTable += '<th class="content-th" scope="row"><div><a class="board-a" href="view.php?optionId=' + nBoardOptionId + '&id=' + data[i]['nBoardSeq'] +  '&page=' +data["pageData"]["nCurrentPage"] + '">' + data[i]['sTitle'] + '</a></div>';
-				boardTable += '<td class="content-th">' + data[i]['sID'] + '</td>';
-				boardTable += '<td class="content-th">' + data[i]['nHit'] + '</td>';
-				boardTable += '<td class="content-th">' + data[i]['nCommentCount'] + '</td>';
-				boardTable += '<td class="content-th">' + data[i]['dtCreateDate'] + '</td>';
-				if(data["nCheckAdmin"]==true) {
-					boardTable += "<td class='content-th'><button id='delete' onclick='deleteBoard(" + data[i]['nBoardSeq']+ "," + page + ");' class='btn-submit'>삭제</button></td>";
-				}
-				boardTable += '</tr>';
-			}
-			$("#boardTable").html(boardTable);
-			
-			let pagingHtml="";
-			pagingHtml+="<li class='page-item'><a class='page-link' href='javascript:getListByOptionId(" + data["pageData"]["nStartPage"]+")'>&laquo;</a></li>";
-			for (var i = data["pageData"]['nStartPage']; i <= data["pageData"]["nEndPage"]; i++) {
-				if (i == data["pageData"]["nCurrentPage"]) {
-					pagingHtml += "<li class='page-item active'>";
-				} else {
-					pagingHtml += "<li class=page-item>";
-				}
-				pagingHtml += "<a class=page-link href='javascript:getListByOptionId("+i+")'>" + i;
-				pagingHtml += "</a></li>";
-			}
-			pagingHtml+="<li class='page-item'><a class='page-link' href='javascript:getListByOptionId(" + data["pageData"]["nEndPage"]+")'>&raquo;</a></li>";
-			$('#pagination').empty();
-			$('#pagination').html(pagingHtml);
-
-
-		}
-	});*/
 }
 
 

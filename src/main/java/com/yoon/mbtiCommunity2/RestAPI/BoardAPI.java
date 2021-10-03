@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yoon.mbtiCommunity2.DTO.BoardDTO;
 import com.yoon.mbtiCommunity2.DTO.MemberDTO;
+import com.yoon.mbtiCommunity2.DTO.Pagination;
 import com.yoon.mbtiCommunity2.Service.BoardService;
 
 @RestController
@@ -34,8 +36,15 @@ public class BoardAPI {
 	}
 
 	@GetMapping("boards/{boardOptionSeq}")
-	public List<BoardDTO> findListByBoardOptionId(@PathVariable("boardOptionSeq") int boardOptionSeq) {
-		return boardService.findListByBoardOptionSeq(boardOptionSeq);
+	public Map<String, Object> findListByBoardOptionId(@PathVariable("boardOptionSeq") int boardOptionSeq, @RequestParam(value="page") int page) {
+		Map<String, Object> response = new HashMap();
+		int rowCount =boardService.countListByBoardOptionSeq(boardOptionSeq);
+		Pagination pagination = new Pagination(rowCount, page);
+		System.out.println(pagination.getStartPage());
+		List<BoardDTO> boardDTOList = boardService.findListByBoardOptionSeq(pagination, boardOptionSeq);
+		response.put("boardList", boardDTOList);
+		response.put("pagination", pagination);
+		return response;
 	}
 
 	@DeleteMapping("board/{boardSeq}")
@@ -47,7 +56,6 @@ public class BoardAPI {
 	@PostMapping("/boards/{boardOptionSeq}/post/{boardSeq}")
 	public Map<String, String> update(@ModelAttribute BoardDTO boardDTO, @PathVariable("boardOptionSeq") int boardOptionSeq, @PathVariable("boardSeq") int boardSeq,
 			HttpSession session) {
-		System.out.println(boardDTO.getTitle());
 		Map<String, String> response = new HashMap();
 		boardDTO.setMemberDTO((MemberDTO) session.getAttribute("member"));
 		boolean updateResult = boardService.update(boardDTO, boardOptionSeq, boardSeq);

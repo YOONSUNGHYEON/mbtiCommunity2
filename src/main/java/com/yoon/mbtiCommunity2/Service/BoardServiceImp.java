@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.yoon.mbtiCommunity2.DTO.BoardDTO;
 import com.yoon.mbtiCommunity2.DTO.BoardOptionDTO;
+import com.yoon.mbtiCommunity2.DTO.Pagination;
 import com.yoon.mbtiCommunity2.Entity.Board;
 import com.yoon.mbtiCommunity2.Repository.BoardOptionRepository;
 import com.yoon.mbtiCommunity2.Repository.BoardRepository;
@@ -55,8 +56,8 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public List<BoardDTO> findListByBoardOptionSeq(int boardOptionSeq) {
-		List<Board> boardList = boardRepository.findByBoardOptionSeqOrderBySeqDesc(boardOptionSeq);
+	public List<BoardDTO> findListByBoardOptionSeq(Pagination pagination, int boardOptionSeq) {
+		List<Board> boardList = boardRepository.findByBoardOptionSeq(pagination, boardOptionSeq);
 		List<BoardDTO> boardListDTO = new ArrayList<>();
 		for (int i = 0; i < boardList.size(); i++) {
 			boardListDTO.add(new BoardDTO(boardList.get(i)));
@@ -69,6 +70,11 @@ public class BoardServiceImp implements BoardService {
 		Board board = boardRepository.findMemberSeqBySeq(boardSeq);
 		return board.getMember().getSeq();
 
+	}
+	@Override
+	public int countListByBoardOptionSeq(int boardOptionSeq) {
+		// TODO Auto-generated method stub
+		return boardRepository.countByboardOptionSeq(boardOptionSeq);
 	}
 
 
