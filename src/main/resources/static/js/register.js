@@ -16,17 +16,14 @@ function register() {
 		contentType: "application/json",
 		async: true,
 		success: function(result) {
-			if(result['code']=='400') {
+			if (result['code'] == '400') {
 				alert(result['message']);
-				location.href='/register';
+				location.href = '/register';
 			}
 			else {
 				alert(result['message']);
-				location.href='/login';
+				location.href = '/login';
 			}
-		},
-		error: function(request, status, error) {
-
 		}
 	})
 }
@@ -36,9 +33,9 @@ function getMbtiList() {
 		$.each(mbtiOptionList, function(index, mbtiOption) {
 			mbtiOptionHtml += '<option id="' + mbtiOption["seq"] + '"';
 			mbtiOptionHtml += ' name="' + mbtiOption["seq"] + '"';
-			mbtiOptionHtml += ' value = "' + mbtiOption["seq"]  + '">';
+			mbtiOptionHtml += ' value = "' + mbtiOption["seq"] + '">';
 			mbtiOptionHtml += mbtiOption["name"] + '</option>';
 			$("#mbtiOptionSelect").html(mbtiOptionHtml);
 		})
-		})
+	})
 }

@@ -1,4 +1,5 @@
 window.onload = function() {
+	const boardId = getParam("boardId");
 	getBoardById(); //해당 게시물 내용 가져오기
 	getCommentListByBoardId();
 	getRecommentByUserIdAndBoardId();
@@ -16,7 +17,7 @@ function getParam(sMethod) {
 		return urlSplit[urlSplit.length - 2];
 	} else if (sMethod == 'boardId') {
 		return urlSplit[urlSplit.length - 1];
-	} else if(sMethod=='page') {
+	} else if (sMethod == 'page') {
 		return params.get('page');
 	}
 }
@@ -28,7 +29,7 @@ function goLastPage() {
 }
 //해당 게시물 내용 가져오기
 function getBoardById() {
-	const boardId = getParam("boardId");
+	
 	$.getJSON('/api/board/' + boardId, function(board) {
 		$("#writer").html(board["memberDTO"]["id"]);
 		$("#title").html(board["title"]);

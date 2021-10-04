@@ -17,9 +17,7 @@ function getParam(sMethod) {
 //해당 게시물 내용 가져오기
 function findByBoardId() {
 	const boardId = getParam("boardId");
-	console.log(boardId);
 	$.getJSON('/api/board/' + boardId, function(board) {
-		console.log(board);
 		$('#title').val(board["title"]);
 		$('#content').val(board["content"]);
 
@@ -28,30 +26,30 @@ function findByBoardId() {
 function goLastPage() {
 	const boardId = getParam('boardId');
 	const boardOptionId = getParam('boardOptionId');
-	location.href = '/board/'+boardOptionId+'/'+boardId;
+	location.href = '/board/' + boardOptionId + '/' + boardId;
 }
 
 function clickEditBtn() {
 	const boardId = getParam('boardId');
 	const boardOptionId = getParam('boardOptionId');
-	
+
 	let boardForm = {
 		title: $("#title").val(),
 		content: $("#content").val(),
 	};
-	
+
 	$.ajax({
-		url: "/api/boards/"+boardOptionId+"/post/"+boardId,
+		url: "/api/boards/" + boardOptionId + "/post/" + boardId,
 		type: "POST",
 		data: boardForm,
 		success: function(updateResult) {
-			if(updateResult['code']=='400') {
+			if (updateResult['code'] == '400') {
 				alert(updateResult['message']);
 			}
-			else if(updateResult['code']=='200'){
+			else if (updateResult['code'] == '200') {
 				alert(updateResult['message']);
 			}
-			location.href = '/board/'+boardOptionId+'/'+boardId;
+			location.href = '/board/' + boardOptionId + '/' + boardId;
 		},
 	})
 }

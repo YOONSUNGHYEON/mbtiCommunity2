@@ -11,8 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import com.yoon.mbtiCommunity2.Entity.BoardOption;
-import com.yoon.mbtiCommunity2.Repository.BoardOptionRepository;
+import mbti.entity.BoardOption;
+import mbti.repository.BoardOptionRepository;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest

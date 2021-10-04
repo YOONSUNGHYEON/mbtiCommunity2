@@ -21,7 +21,7 @@ function getnBoardOptionIdParam() {
 }
 
 function goLastPage() {
-	const nOptionId =getnBoardOptionIdParam();
+	const nOptionId = getnBoardOptionIdParam();
 	location.href = './board.php?id=' + nOptionId;
 }
 
