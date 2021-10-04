@@ -15,6 +15,8 @@ import com.yoon.mbtiCommunity2.DTO.Pagination;
 import com.yoon.mbtiCommunity2.Entity.Board;
 import com.yoon.mbtiCommunity2.Repository.BoardOptionRepository;
 import com.yoon.mbtiCommunity2.Repository.BoardRepository;
+import com.yoon.mbtiCommunity2.Repository.CommentRepository;
+import com.yoon.mbtiCommunity2.Repository.RecommendRepository;
 
 @Service
 @Transactional
@@ -22,9 +24,12 @@ public class BoardServiceImp implements BoardService {
 
 	@Autowired
 	BoardOptionRepository boardOptionRepository;
-
 	@Autowired
 	BoardRepository boardRepository;
+	@Autowired
+	RecommendRepository recommendRepository;
+	@Autowired
+	CommentRepository commentRepository;
 
 	@Override
 	public int save(BoardDTO boardDTO, int boardOptionId) {
@@ -60,7 +65,10 @@ public class BoardServiceImp implements BoardService {
 		List<Board> boardList = boardRepository.findByBoardOptionSeq(pagination, boardOptionSeq);
 		List<BoardDTO> boardListDTO = new ArrayList<>();
 		for (int i = 0; i < boardList.size(); i++) {
-			boardListDTO.add(new BoardDTO(boardList.get(i)));
+			BoardDTO boardDTO = new BoardDTO(boardList.get(i));
+			boardDTO.setCommentCount(commentRepository.countByboardSeq(boardDTO.getSeq()));
+			boardDTO.setRecommendCount(recommendRepository.countByboardSeq(boardDTO.getSeq()));
+			boardListDTO.add(boardDTO);
 		}
 		return boardListDTO;
 	}

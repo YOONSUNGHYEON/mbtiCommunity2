@@ -36,6 +36,11 @@ public class RecommendServiceImp implements RecommendService{
 
 	}
 
+	@Override
+	public int countByboardSeq(int boardSeq) {
+		return recommendRepository.countByboardSeq(boardSeq);
+	}
+
 
 
 }

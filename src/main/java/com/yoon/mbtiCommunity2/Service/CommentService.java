@@ -12,4 +12,5 @@ public interface CommentService {
 	boolean save(CommentDTO commentDTO, int boardSeq, String memberId);
 	List<CommentDTO> findListByBoardSeq(int boardSeq);
 	String findMemberIdBySeq(int commentSeq);
+	int countByboardSeq(int boardSeq);
 }

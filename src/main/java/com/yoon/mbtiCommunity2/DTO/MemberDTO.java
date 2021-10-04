@@ -13,6 +13,7 @@ public class MemberDTO {
 	private String password;
 	private String joinDate;
 	private MbtiOption mbtiOption;
+    private int admin;
 
 	public MemberDTO() {
 
@@ -22,5 +23,6 @@ public class MemberDTO {
 		this.seq = member.getSeq();
 		this.id = member.getId();
 		this.mbtiOption = member.getMbtiOption();
+		this.admin = member.getAdmin();
 	}
 }

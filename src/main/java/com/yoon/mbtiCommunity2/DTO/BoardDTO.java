@@ -14,6 +14,8 @@ public class BoardDTO {
 	private String content;
     private String createDate ;
     private int hit=0 ;
+    private int commentCount;
+    private int recommendCount;
 
     public BoardDTO() {
   		// TODO Auto-generated constructor stub

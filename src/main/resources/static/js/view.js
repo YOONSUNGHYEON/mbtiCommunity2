@@ -3,11 +3,9 @@ window.onload = function() {
 	getCommentListByBoardId();
 	getRecommentByUserIdAndBoardId();
 }
-function deleteConfirm() {
-	if (!confirm("정말 취소 하시겠습니까?")) {
-
-	} else {
-
+function deleteConfirm(commentSeq) {
+	if (confirm("정말 삭제 하시겠습니까?")) {
+		deleteComment(commentSeq);
 	}
 }
 function getParam(sMethod) {
@@ -130,7 +128,7 @@ function getCommentListByBoardId() {
 			$.each(commentList, function(index, comment) {
 				commentTable += '<ul>';
 				if (comment['memberDTO']['id'] == memberId) {
-					commentTable += "<button  onclick='deleteComment(" + comment['seq'] + ");' class='btn-submit comment-delete'>삭제</button>";
+					commentTable += "<button  onclick='deleteConfirm(" + comment['seq'] + ");' class='btn-submit comment-delete'>삭제</button>";
 				}
 				commentTable += '<li class="comment-writer">' + comment['memberDTO']['id'] + '</li>';
 				commentTable += '<li class="comment-content">' + comment['content'] + '</li>';

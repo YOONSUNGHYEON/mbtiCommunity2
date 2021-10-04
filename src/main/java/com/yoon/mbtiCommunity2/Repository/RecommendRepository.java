@@ -10,5 +10,5 @@ public interface RecommendRepository extends JpaRepository<Recommend,Integer>{
 
 
 	Recommend findByBoardSeqAndMemberSeq(int boardSeq, int memberSeq);
-
+	int countByboardSeq(int boardSeq);
 }

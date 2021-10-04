@@ -38,11 +38,12 @@ public class MemberController {
 	public String login(@ModelAttribute MemberDTO memberDTO, Model model, HttpSession session) {
 		MemberDTO result = memberService.login(memberDTO);
 		if (result != null) {
-			System.out.println(result.toString());
-			System.out.println("not null");
 			session.setAttribute("member", result);
 			session.setAttribute("memberId", result.getId());
 			session.setAttribute("memberSeq", result.getSeq());
+			if(result.getAdmin()== 1) {
+				session.setAttribute("adminId", result.getId());
+			}
 			return "redirect:/";
 
 		} else {

@@ -16,4 +16,6 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
 
 	Comment findMemberIdBySeq(int commentSeq);
 
+	int countByboardSeq(int boardSeq);
+
 }

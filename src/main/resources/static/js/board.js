@@ -45,10 +45,7 @@ function deleteBoard(nBoardId, page) {
 //게시판 목록 가져오기
 function getListByOptionId(page) {
 	let boardOptionId = getParam('optionId');
-	console.log(page);
-	$.getJSON('/api/boards/' + boardOptionId+'?page='+page, function(response) {
-		//console.log(response);
-		
+	$.getJSON('/api/boards/' + boardOptionId+'?page='+page, function(response) {	
 		let pagingHtml="";
 			pagingHtml+="<li class='page-item'><a class='page-link' href='javascript:getListByOptionId(" + response["pagination"]["startPage"]+")'>&laquo;</a></li>";
 			for (var i = response["pagination"]["startPage"]; i <= response["pagination"]["endPage"]; i++) {
@@ -73,9 +70,12 @@ function getListByOptionId(page) {
 				boardTable +='">' ;
 				boardTable += item["title"] + '</a></div>';
 				boardTable += '<td class="content-th">' + item["memberDTO"]["id"] + '</td>';
-				boardTable += '<td class="content-th">' + 0 + '</td>';
-				boardTable += '<td class="content-th">' + 0 + '</td>';
+				boardTable += '<td class="content-th">' + item["recommendCount"] + '</td>';
+				boardTable += '<td class="content-th">' + item["commentCount"] + '</td>';
 				boardTable += '<td class="content-th">' + item["createDate"] + '</td>';
+				if(response["admin"]==true) {
+					boardTable += "<td class='content-th'><button id='delete' onclick='deleteBoard(" + item["seq"]+ "," + page + ");' class='btn-submit'>삭제</button></td>";
+				}
 				boardTable += '</tr>';
 		});
 		$("#boardTable").html(boardTable);

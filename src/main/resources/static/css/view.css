@@ -12,12 +12,9 @@ html, body {
 	padding: 0;
 }
 
-html {
-	font-size: 25px;
-}
 
 body {
-	font-size: 0.52rem;
+
 	font-family: 'Nanum Gothic', 'Malgun Gothic', 'Myriad', 'arial', '宋體',
 		'simsun', 'Dotum';
 }
@@ -32,7 +29,7 @@ hr {
 	border-top: 2px solid #bbb;
 }
 article, aside, details, figcaption, figure, footer, header, hgroup,
-	menu, nav, section {
+	menu, section {
 	display: block;
 	margin: 0;
 	padding: 0;
@@ -145,80 +142,11 @@ img {
 }
 .btn-img
 {
+	padding-right:5px;
 	max-width: 30%;
 	max-height: 80%;
 }
-@media ( max-width : 479px) {
-	html {
-		font-size: 15px;
-	}
-}
 
-@media ( min-width : 480px) and (max-width: 519px) {
-	html {
-		font-size: 15px;
-	}
-}
-
-@media ( min-width : 520px) and (max-width: 559px) {
-	html {
-		font-size: 16px;
-	}
-}
-
-@media ( min-width : 560px) and (max-width: 599px) {
-	html {
-		font-size: 17px;
-	}
-}
-
-@media ( min-width : 600px) and (max-width: 639px) {
-	html {
-		font-size: 18px;
-	}
-}
-
-@media ( min-width : 640px) and (max-width: 679px) {
-	html {
-		font-size: 19px;
-	}
-}
-
-@media ( min-width : 680px) and (max-width: 719px) {
-	html {
-		font-size: 20px;
-	}
-}
-
-@media ( min-width : 720px) and (max-width: 759px) {
-	html {
-		font-size: 21px;
-	}
-}
-
-@media ( min-width : 760px) and (max-width: 799px) {
-	html {
-		font-size: 22px;
-	}
-}
-
-@media ( min-width : 800px) and (max-width: 839px) {
-	html {
-		font-size: 23px;
-	}
-}
-
-@media ( min-width : 840px) and (max-width: 879px) {
-	html {
-		font-size: 24px;
-	}
-}
-
-@media ( min-width : 880px) {
-	html {
-		font-size: 25px;
-	}
-}
 /* layer popup */
 #layer {
 	width: 100%;
@@ -540,7 +468,7 @@ span.middle.all ~ * {
 	text-align: left;
 }
 
-.btn-default, .btn-submit {
+.btn-default, .btn-submit, .btn-like {
 	display: inline-block;
 	padding: 0 20px;
 	background: #09f;
@@ -555,10 +483,9 @@ span.middle.all ~ * {
 	text-decoration: none;
 }
 .btn-like {
-	background: rgb(168, 201, 238);
-	border: 0;
-	outline: 0;
-	font-size: 11px;
+	padding-right:10px;
+	padding-left:10px;
+	background: rgb(247, 66, 191);
 }
 .btn-default {
 	background: #444;

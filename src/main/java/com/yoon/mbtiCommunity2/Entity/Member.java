@@ -36,6 +36,8 @@ public class Member {
     @JoinColumn(name = "nMbtiOptionSeq", nullable = false)
     private MbtiOption mbtiOption;
 
+    @Column(name = "nAdmin", nullable = true)
+    private int admin;
 
     public Member() { }
 
@@ -46,6 +48,7 @@ public class Member {
 		this.password = memberDTO.getPassword();
 		this.joinDate = memberDTO.getJoinDate();
 		this.mbtiOption = memberDTO.getMbtiOption();
+		this.admin = memberDTO.getAdmin();
 	}
 
 
@@ -54,5 +57,9 @@ public class Member {
 		this.password = password;
 		this.joinDate =joinDate;
 		this.mbtiOption = mbtiOption;
+
 	}
+
+
+
 }

@@ -65,4 +65,9 @@ public class CommentServiceImp implements CommentService{
 		return comment.getMember().getId();
 	}
 
+	@Override
+	public int countByboardSeq(int boardSeq) {
+		return commentRepository.countByboardSeq(boardSeq);
+	}
+
 }

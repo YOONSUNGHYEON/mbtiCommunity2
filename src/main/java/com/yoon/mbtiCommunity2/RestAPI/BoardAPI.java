@@ -36,14 +36,21 @@ public class BoardAPI {
 	}
 
 	@GetMapping("boards/{boardOptionSeq}")
-	public Map<String, Object> findListByBoardOptionId(@PathVariable("boardOptionSeq") int boardOptionSeq, @RequestParam(value="page") int page) {
+	public Map<String, Object> findListByBoardOptionId(@PathVariable("boardOptionSeq") int boardOptionSeq, @RequestParam(value="page") int page, HttpSession session) {
 		Map<String, Object> response = new HashMap();
 		int rowCount =boardService.countListByBoardOptionSeq(boardOptionSeq);
 		Pagination pagination = new Pagination(rowCount, page);
-		System.out.println(pagination.getStartPage());
 		List<BoardDTO> boardDTOList = boardService.findListByBoardOptionSeq(pagination, boardOptionSeq);
+		//response.put("commentCount", commentService.countByboardSeq(boardOptionSeq));
+		//response.put("recommendCount", boardDTOList);
+		response.put("boardList", boardDTOList);
 		response.put("boardList", boardDTOList);
 		response.put("pagination", pagination);
+		if(session.getAttribute("adminId")!=null) {
+			response.put("admin", true);
+		}else {
+			response.put("admin", false);
+		}
 		return response;
 	}
 
