@@ -1,5 +1,4 @@
-window.onload = function() {
-	const boardId = getParam("boardId");
+window.onload = function() {	
 	getBoardById(); //해당 게시물 내용 가져오기
 	getCommentListByBoardId();
 	getRecommentByUserIdAndBoardId();
@@ -29,7 +28,7 @@ function goLastPage() {
 }
 //해당 게시물 내용 가져오기
 function getBoardById() {
-	
+	let boardId = getParam("boardId");
 	$.getJSON('/api/board/' + boardId, function(board) {
 		$("#writer").html(board["memberDTO"]["id"]);
 		$("#title").html(board["title"]);

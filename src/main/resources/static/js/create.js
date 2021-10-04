@@ -4,7 +4,7 @@ window.onload = function() {
 //board/14/post/2 수정 페이지
 function getParam(sMethod) {
 	let url = location.pathname;
-	const urlSplit = url.split("/");
+	let urlSplit = url.split("/");
 	if (sMethod == 'boardOptionId') {
 		return urlSplit[urlSplit.length - 2];
 	}
@@ -15,13 +15,13 @@ function getParam(sMethod) {
 
 
 function getnBoardOptionIdParam() {
-	const params = new URLSearchParams(location.search);
-	const nOptionId = params.get('id');
+	let params = new URLSearchParams(location.search);
+	let nOptionId = params.get('id');
 	return nOptionId;
 }
 
 function goLastPage() {
-	const nOptionId = getnBoardOptionIdParam();
+	let nOptionId = getnBoardOptionIdParam();
 	location.href = './board.php?id=' + nOptionId;
 }
 

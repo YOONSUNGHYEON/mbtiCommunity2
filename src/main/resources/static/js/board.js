@@ -7,7 +7,7 @@ window.onload = function() {
 function getParam(sMethod) {
 	let url = location.pathname;
 	let params = new URLSearchParams(location.search);
-	const urlSplit = url.split("/");
+	let urlSplit = url.split("/");
 
 	if (sMethod == 'page') {
 		return params.get('page');
@@ -63,7 +63,7 @@ function getListByOptionId(page) {
 		$.each(response["boardList"], function(index, item) {
 			boardTable += '<tr style="cursor:pointer;">';
 			boardTable += '<th class="content-th" scope="row"><div><a class="board-a" href="/board/';
-			boardTable += boardOptionId + "/" + item["seq"] + "?page="   page;
+			boardTable += boardOptionId + "/" + item["seq"] + "?page="  + page;
 			boardTable += '">';
 			boardTable += item["title"] + '</a></div>';
 			boardTable += '<td class="content-th">' + item["memberDTO"]["id"] + '</td>';

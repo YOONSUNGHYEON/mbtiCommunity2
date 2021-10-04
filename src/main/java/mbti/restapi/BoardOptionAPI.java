@@ -21,6 +21,9 @@ public class BoardOptionAPI {
 	@GetMapping("boardOptions")
 	public List<BoardOptionDTO> findAll(Model model) {
 		List<BoardOptionDTO> boardOptionDTOList = boardOptionService.findAll();
+		if(boardOptionDTOList==null) {
+
+		}
 		return boardOptionDTOList;
 	}
 

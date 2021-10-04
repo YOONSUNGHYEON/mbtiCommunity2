@@ -5,7 +5,7 @@ window.onload = function() {
 
 function getParam(sMethod) {
 	let url = location.pathname;
-	const urlSplit = url.split("/");
+	let urlSplit = url.split("/");
 	if (sMethod == 'boardOptionId') {
 		return urlSplit[urlSplit.length - 3];
 	}
@@ -16,7 +16,7 @@ function getParam(sMethod) {
 
 //해당 게시물 내용 가져오기
 function findByBoardId() {
-	const boardId = getParam("boardId");
+	let boardId = getParam("boardId");
 	$.getJSON('/api/board/' + boardId, function(board) {
 		$('#title').val(board["title"]);
 		$('#content').val(board["content"]);
@@ -24,14 +24,14 @@ function findByBoardId() {
 	})
 }
 function goLastPage() {
-	const boardId = getParam('boardId');
-	const boardOptionId = getParam('boardOptionId');
+	let boardId = getParam('boardId');
+	let boardOptionId = getParam('boardOptionId');
 	location.href = '/board/' + boardOptionId + '/' + boardId;
 }
 
 function clickEditBtn() {
-	const boardId = getParam('boardId');
-	const boardOptionId = getParam('boardOptionId');
+	let boardId = getParam('boardId');
+	let boardOptionId = getParam('boardOptionId');
 
 	let boardForm = {
 		title: $("#title").val(),
