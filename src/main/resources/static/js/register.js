@@ -14,8 +14,14 @@ function register() {
 		type: "POST",
 		data: registerForm, // data에 바로 serialze한 데이터를 넣는다
 		success: function(result) {
-			alert(result['message']);
-			
+			if (result['code'] == '400') {
+				alert(result['message']);
+				location.href = '/register';
+			}
+			else {
+				alert(result['message']);
+				location.href = '/login';
+			}
 		}, error: function(error) {
 			console.log(error);
 		}
