@@ -32,7 +32,13 @@ function deleteBoard(boardId, page) {
 	$.ajax({
 		type: 'DELETE',
 		url: "/api/board/" + boardId,
-		success: function(board) {
+		success: function(deleteResult) {
+			if (deleteResult == true) {
+				alert("삭제 성공했습니다.");
+			}
+			else {
+				alert(deleteResult);
+			}
 			getListByOptionId(page);
 		}
 	});

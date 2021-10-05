@@ -53,12 +53,15 @@ public class BoardAPI {
 
 	@DeleteMapping("board/{boardSeq}")
 	public boolean delete(@PathVariable(name = "boardSeq") int boardSeq, HttpSession session){
-		if (session.getAttribute("member") == null) {
-			return false;
-		}
-		int writerSeq = boardService.findMemberSeqByBoardSeq(boardSeq);
-		if (writerSeq!=Integer.parseInt(session.getAttribute("memberSeq").toString())) {
-			return false;
+		System.out.println(session.getAttribute("adminId"));
+		if(session.getAttribute("adminId")==null){
+			if (session.getAttribute("member") == null) {
+				return false;
+			}
+			int writerSeq = boardService.findMemberSeqByBoardSeq(boardSeq);
+			if (writerSeq!=Integer.parseInt(session.getAttribute("memberSeq").toString())) {
+				return false;
+			}
 		}
 		boardService.delete(boardSeq);
 		return true;
