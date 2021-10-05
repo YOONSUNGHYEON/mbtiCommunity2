@@ -49,7 +49,7 @@ function clickEditBtn() {
 			else if (updateResult['code'] == '200') {
 				alert(updateResult['message']);
 			}
-			location.href = '/board/' + boardOptionId + '/' + boardId;
+			location.href = '/board/' + boardOptionId + '/' + boardId+'?page=1';
 		},
 	})
 }

@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import mbti.entity.Member;
+import mbti.dto.MemberDTO;
 import mbti.service.RecommendService;
+
 
 @RestController
 @RequestMapping("/api")
@@ -41,8 +42,14 @@ public class RecommendAPI {
 			response.put("message", "로그인 해주세요.");
 			response.put("code", "400");
 		} else {
-			recommendService.recommend(boardSeq, (Member) session.getAttribute("member"));
-			response.put("code", "200");
+			boolean recommandStatus = recommendService.recommend(boardSeq, (MemberDTO) session.getAttribute("member"));
+			if(recommandStatus==true) {
+				response.put("code", "200");
+			} else {
+				response.put("code", "202");
+			}
+
+
 		}
 		return response;
 	}

@@ -1,9 +1,11 @@
 package mbti.service;
 
-import mbti.entity.Member;
+
+import mbti.dto.MemberDTO;
+
 
 public interface RecommendService {
 	int findCheckByMemberSeqAndBoardSeq(int boardSeq, int memberSeq);
-	void recommend(int boardSeq, Member member);
 	int countByboardSeq(int boardSeq);
+	boolean recommend(int boardSeq, MemberDTO memberDTO);
 }

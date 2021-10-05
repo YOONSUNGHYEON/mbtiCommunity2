@@ -52,9 +52,9 @@ public class BoardAPI {
 	}
 
 	@DeleteMapping("board/{boardSeq}")
-	public Map<String, String> deleteReview(@PathVariable(name = "boardSeq") int boardSeq){
-		Map<String, String> response = new HashMap();
-		return response;
+	public boolean delete(@PathVariable(name = "boardSeq") int boardSeq){
+		boardService.delete(boardSeq);
+		return true;
 	}
 
 	@PostMapping("/boards/{boardOptionSeq}/post/{boardSeq}")

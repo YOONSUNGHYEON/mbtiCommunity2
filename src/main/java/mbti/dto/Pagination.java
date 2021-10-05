@@ -22,16 +22,17 @@ public class Pagination {
 			currentPage = 1;
 		}
 		this.startCount = (currentPage - 1) * this.blockCount;
-		if((this.blockPage+1)/2<currentPage) {
-			this.startPage=currentPage-(this.blockPage/1)/2;
-			this.endPage = this.startPage + this.blockPage-1;
-		}else {
+		if ((this.blockPage + 1) / 2 < currentPage) {
+			this.startPage = currentPage - (this.blockPage / 1) / 2;
+			this.endPage = this.startPage + this.blockPage - 1;
+		} else {
 			this.startPage = 1;
-			this.endPage = this.startPage + this.blockPage-1;
+			this.endPage = this.startPage + this.blockPage - 1;
 		}
 		this.currentPage = currentPage;
-		 if (this.endPage > this.totalPage)
-			 this.endPage = this.totalPage;
+		if (this.endPage > this.totalPage)
+			this.endPage = this.totalPage;
 
 	}
+
 }

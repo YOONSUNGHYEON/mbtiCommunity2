@@ -56,6 +56,7 @@ public class Member {
 		this.password = password;
 		this.joinDate =joinDate;
 		this.mbtiOption = mbtiOption;
+		//this.admin=1;
 
 	}
 

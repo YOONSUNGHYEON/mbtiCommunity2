@@ -85,6 +85,15 @@ public class BoardServiceImp implements BoardService {
 		return boardRepository.countByboardOptionSeq(boardOptionSeq);
 	}
 
+	@Transactional
+	@Override
+	public void delete(int boardSeq) {
+		Board board = boardRepository.findBySeq(boardSeq);
+		commentRepository.deleteByBoardSeq(boardSeq);
+		recommendRepository.deleteByBoardSeq(boardSeq);
+		boardRepository.delete(board);
+	}
+
 
 
 }

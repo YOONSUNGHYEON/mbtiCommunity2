@@ -56,6 +56,7 @@ public class BoardController {
 		boardDTO.setMemberDTO((MemberDTO) session.getAttribute("member"));
 		int boardSeq = boardService.save(boardDTO, boardOptionSeq);
 		return "redirect:/board/"+boardOptionSeq+"/"+boardSeq + "?page=1";
+
 	}
 
 	// 글 수정 페이지

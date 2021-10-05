@@ -18,4 +18,7 @@ public interface CommentRepository extends JpaRepository<Comment,Integer> {
 
 	int countByboardSeq(int boardSeq);
 
+	void deleteByBoardSeq(int boardSeq);
+
+
 }

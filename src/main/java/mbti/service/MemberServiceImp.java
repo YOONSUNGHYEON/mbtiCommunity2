@@ -21,27 +21,28 @@ public class MemberServiceImp implements MemberService {
 	MemberRepository memberRepository;
 	@Autowired
 	MbtiOptionRepository mbtiOptionRepository;
-
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public MemberDTO login(MemberDTO memberDTO) {
 		Member member = memberRepository.findById(memberDTO.getId());
-		if (!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword()) && member == null) {
+		if (member == null || !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
 			return null;
 		}
 		return new MemberDTO(member);
 	}
 
 	@Override
-	public boolean register(String id, String password, String mbtiOption) {
+	public boolean register(String id, String password, int mbtiOptionSeq) {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date time = new Date();
-		// 중복 검사
+		// 비밀 번호 암호화
 		String encodedPassword = passwordEncoder.encode(password);
+		// 중복 검사
 		Member member = new Member(id, encodedPassword, format.format(time),
-				mbtiOptionRepository.getById(Integer.parseInt(mbtiOption)));
+				mbtiOptionRepository.getById(mbtiOptionSeq));
+
 		if (memberRepository.findById(id) == null) {
 			memberRepository.save(member);
 			return true;

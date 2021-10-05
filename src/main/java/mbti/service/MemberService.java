@@ -4,7 +4,7 @@ import mbti.dto.MemberDTO;
 
 public interface MemberService {
 
-	boolean register(String id, String password, String mbtiOption);
+	boolean register(String id, String password, int mbtiOptionSeq);
 
     MemberDTO login(MemberDTO memberDTO);
 

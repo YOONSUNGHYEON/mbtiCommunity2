@@ -5,25 +5,19 @@ function register() {
 	let registerForm = {
 		id: $("#id").val(),
 		password: $("#password").val(),
-		password2: $("#password2").val(),
-		mbtiOption: $("#mbtiOptionSelect option:selected").val()
+		password2: $("#password2").val()
 	};
+	let mbtiSeq = $("#mbtiOptionSelect option:selected").val();
+
 	$.ajax({
-		url: "api/register",
+		url: "/api/register/" + mbtiSeq,
 		type: "POST",
-		dataType: "json",
-		data: JSON.stringify(registerForm),
-		contentType: "application/json",
-		async: true,
+		data: registerForm, // data에 바로 serialze한 데이터를 넣는다
 		success: function(result) {
-			if (result['code'] == '400') {
-				alert(result['message']);
-				location.href = '/register';
-			}
-			else {
-				alert(result['message']);
-				location.href = '/login';
-			}
+			alert(result['message']);
+			
+		}, error: function(error) {
+			console.log(error);
 		}
 	})
 }

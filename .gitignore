@@ -35,3 +35,4 @@ out/
 
 ### VS Code ###
 .vscode/
+src/main/java/com/yoon/mbtiCommunity2/Repository/BoardRepository.java

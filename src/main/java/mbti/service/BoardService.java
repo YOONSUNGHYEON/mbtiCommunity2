@@ -18,4 +18,6 @@ public interface BoardService {
 	boolean update(BoardDTO boardDTO, int boardOptionSeq, int boardSeq);
 
 	int countListByBoardOptionSeq(int boardOptionSeq);
+
+	void delete(int boardSeq);
 }

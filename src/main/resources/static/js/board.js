@@ -1,7 +1,7 @@
 window.onload = function() {
 	//새글 버튼 보여주기 여부 검사
 	getOptionNameByOptionId();
-	getListByOptionId(getParam('page'));
+	getListByOptionId(1);
 }
 
 function getParam(sMethod) {
@@ -10,9 +10,8 @@ function getParam(sMethod) {
 	let urlSplit = url.split("/");
 
 	if (sMethod == 'page') {
-		return params.get('page');
-	}
-	else if (sMethod == 'optionId') {
+		return params.get('page');	
+	}else if (sMethod == 'optionId') {
 		return urlSplit[urlSplit.length - 1];
 	}
 }
@@ -29,10 +28,10 @@ function getOptionNameByOptionId() {
 
 }
 //게시물 삭제하기
-function deleteBoard(nBoardId, page) {
+function deleteBoard(boardId, page) {
 	$.ajax({
 		type: 'DELETE',
-		url: "BoardController.php?method=delete&id=" + nBoardId,
+		url: "/api/board/" + boardId,
 		success: function(board) {
 			getListByOptionId(page);
 		}
@@ -76,6 +75,7 @@ function getListByOptionId(page) {
 			boardTable += '</tr>';
 		});
 		$("#boardTable").html(boardTable);
+
 	})
 }
 

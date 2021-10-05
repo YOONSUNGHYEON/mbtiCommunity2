@@ -54,10 +54,10 @@ function getBoardById() {
 
 //게시물 삭제하기
 function deleteBoard() {
-	const url = location.pathname;
+	const boardId = getParam('boardId');
 	$.ajax({
 		type: 'DELETE',
-		url: "/api" + url,
+		url: "/api/board/" + boardId,
 		success: function(deleteResult) {
 			if (deleteResult == true) {
 				alert("삭제 성공했습니다.");
@@ -154,12 +154,12 @@ function getRecommentByUserIdAndBoardId() {
 		url: "/api/recommend/" + boardId,
 		dataType: "json",
 		success: function(recommend) {
-			console.log(recommend);
+			
 			if (recommend == true) {
-				$(".btn-like").attr("src", "/image/fullHeart.png");
+				$(".img-like").attr("src", "/image/fullHeart.png");
 			}
 			else {
-				$(".btn-like").attr("src", "/image/heart.png");
+				$(".img-like").attr("src", "/image/heart.png");
 			}
 		}
 	});
@@ -172,16 +172,19 @@ function clickLike() {
 	$.ajax({
 		type: 'POST',
 		url: "/api/recommend/" + boardId,
-		dataType: "text",
-		success: function(recommend) {
-			if (recommend == true) {
-				$(".btn-like").attr("src", "/image/fullHeart.png");
-			}
-			else {
-				$(".btn-like").attr("src", "/image/heart.png");
+		dataType: "json",
+		success: function(recommendStatus) {
+			if(recommendStatus['code']=='400') {
+				alert(recommendStatus['message']);
+			} else if (recommendStatus['code']=="200") {
+				$(".img-like").attr("src", "/image/fullHeart.png");
+			}else if (recommendStatus['code']=="202") {
+				$(".img-like").attr("src", "/image/heart.png");
 			}
 		}
 	});
+	
+	
 
 }
 
